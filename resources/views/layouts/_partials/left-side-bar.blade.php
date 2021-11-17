@@ -21,10 +21,13 @@
             <li>
                 <div class="sidebar-small-cap">Apps</div>
             </li>
-            <li>
-                <a href="{{ route('dashboard') }}" class="dropdown-toggle no-arrow">
+            <li class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle">
                     <span class="micon dw dw-email-1"></span><span class="mtext">Email</span>
                 </a>
+                <ul class="submenu">
+                    <li><a href="{{ route('email.inbox') }}">Inbox</a></li>
+                </ul>
             </li>
         </ul>
     </div>

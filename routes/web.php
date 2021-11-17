@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Emails\Inbox;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/email/inbox', Inbox::class)->name('email.inbox');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
