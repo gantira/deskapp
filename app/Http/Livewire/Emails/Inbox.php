@@ -2,12 +2,28 @@
 
 namespace App\Http\Livewire\Emails;
 
-use Livewire\Component;
+use App\Http\Livewire\AdminComponent;
+use Webklex\IMAP\Facades\Client;
 
-class Inbox extends Component
+class Inbox extends AdminComponent
 {
+
     public function render()
     {
-        return view('livewire.emails.inbox');
+        $client = Client::account('default');
+        $client->connect();
+
+        $folders = $client->getFolder('INBOX');
+
+        $messages = $folders->query()
+            ->all()
+            ->setFetchBody(false)
+            ->paginate($this->perPage, $this->page, $this->pageName);
+
+        return view('livewire.emails.inbox', [
+            'messages' => $messages,
+            'inboxCount' => $folders->query()->unseen()->count(),
+            'sentCount' => '',
+        ]);
     }
 }

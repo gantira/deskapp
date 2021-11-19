@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Emails\Compose;
 use App\Http\Livewire\Emails\Inbox;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/email/inbox', Inbox::class)->name('email.inbox');
+Route::middleware(['auth', 'verified'])->group(function () {
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/email/inbox', Inbox::class)->name('email.inbox');
+    Route::get('/email/compose', Compose::class)->name('email.compose');
 
-require __DIR__.'/auth.php';
+    Route::get('/dashboard', fn () =>  view('dashboard'))->name('dashboard');
+});
+
+require __DIR__ . '/auth.php';
