@@ -26,8 +26,8 @@
                     <span class="micon dw dw-email-1"></span><span class="mtext">Email</span>
                 </a>
                 <ul class="submenu">
-                    <li><a href="{{ route('email.inbox') }}">Inbox</a></li>
-                    <li><a href="{{ route('email.compose') }}">Compose</a></li>
+                    <li><a href="{{ route('email') }}">Inbox</a></li>
+                    <li><a href="#">Compose</a></li>
                 </ul>
             </li>
         </ul>

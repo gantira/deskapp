@@ -14,6 +14,9 @@ class AdminComponent extends Component
     public $perPage = 9;
     public $page = 1;
     public $pageName = 'page';
+    public $menu = 'INBOX';
 
-    protected $queryString = ['page' => ['except' => 1]];
+    protected $queryString = [
+        'page' => ['except' => 1],
+    ];
 }
