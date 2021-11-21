@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Emails\Compose;
 use App\Http\Livewire\Emails\EmailList;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/email', EmailList::class)->name('email');
+    Route::get('/email/compose', Compose::class)->name('email.compose');
 
     Route::get('/dashboard', fn () =>  view('dashboard'))->name('dashboard');
 });

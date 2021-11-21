@@ -19,4 +19,9 @@ class AdminComponent extends Component
     protected $queryString = [
         'page' => ['except' => 1],
     ];
+
+    public function updatedMenu()
+    {
+        $this->resetPage();
+    }
 }

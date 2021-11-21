@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Emails;
 
 use App\Http\Livewire\AdminComponent;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Webklex\IMAP\Facades\Client;
 
 class EmailList extends AdminComponent

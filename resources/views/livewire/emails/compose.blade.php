@@ -17,48 +17,75 @@
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-md-4 col-sm-12 mb-30">
-                    <div class="pd-20 card-box">
-                        <x-inbox-list />
-                    </div>
-                </div>
-                <div class="col-md-8 col-sm-12 mb-30">
+
+                <div class="col-md-8 col-lg-8 col-sm-12 mb-30">
                     <div class="pd-20 card-box height-100-p">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-borderless">
-                                <tbody>
-                                    @for ($i = 0; $i < 12; $i++) <tr>
-                                        <td scope="row"
-                                            class="d-flex justify-content-between align-items-center  border-bottom">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck{{ $i }}">
-                                                    <label class="custom-control-label"
-                                                        for="customCheck{{ $i }}"></label>
-                                                </div>
-                                                <span class="icon-copy fa fa-star-o fa-2x ml-2" style="cursor: pointer;"
-                                                    aria-hidden="true"></span>
-                                                <span class="d-inline-block text-truncate max-width-600 ml-3"
-                                                    style="cursor: pointer;">Lorem ipsum
-                                                    dolor sit amet consectetur adipisicing elit. Delectus repellat
-                                                    voluptates totam sint, sit aut esse ducimus numquam laborum labore
-                                                    aliquam ipsum quisquam autem! Fugit.</span>
-                                            </div>
-                                            <span>11:49 AM</span>
-                                        </td>
-                                        </tr>
-                                        @endfor
-                                </tbody>
-                            </table>
+                        @if (session('message'))
+                        <div class="alert alert-success">
+                            <i class="icon-copy dw dw-mail"></i>
+                            {{ session('message') }}
                         </div>
+                        @endif
+
+                        @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
+                        <form wire:submit.prevent="sendEmail">
+                            <div class="form-group">
+                                <label>From</label>
+                                <input class="form-control" type="text" readonly
+                                    value="Intranet Admin <iadmin@telkom.co.id>">
+                            </div>
+                            <div class="form-group">
+                                <label>To</label>
+                                <input wire:model.defer="email.to"
+                                    class="form-control @error('email.to') is-invalid @enderror" type="text">
+                                @error('email.to')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input wire:model.defer="email.subject"
+                                    class="form-control @error('email.subject') is-invalid @enderror"" type=" text">
+                                @error('email.subject')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Body</label>
+                                <div wire:ignore>
+                                    <textarea class="textarea_editor form-control border-radius-0" id="body"
+                                        placeholder="Enter text ..."></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" value="Send" class="btn btn-primary">
+                                    <i class="icon-copy fa fa-send" aria-hidden="true"></i>
+                                    Send
+                                </button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
-            <div class="footer-wrap pd-20 mb-20 card-box">
-                DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit
-                    Hingarajiya</a>
-            </div>
+
         </div>
     </div>
 </div>
+
+@push('js')
+<script>
+    $('form').submit(function() {
+            @this.set('email.body', $('#body').val());
+        })
+</script>
+@endpush
