@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Emails\BulkMessage;
 use App\Http\Livewire\Emails\Compose;
 use App\Http\Livewire\Emails\EmailList;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/email', EmailList::class)->name('email');
     Route::get('/email/compose', Compose::class)->name('email.compose');
+    Route::get('/email/bulk', BulkMessage::class)->name('email.bulk');
 
     Route::get('/dashboard', fn () =>  view('dashboard'))->name('dashboard');
 });

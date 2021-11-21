@@ -1,5 +1,5 @@
 <div class="brand-logo">
-    <a href="index.html">
+    <a href="#">
         <img src="{{ asset('vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo">
         <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo">
     </a>
@@ -28,6 +28,7 @@
                 <ul class="submenu">
                     <li><a href="{{ route('email') }}">Inbox</a></li>
                     <li><a href="{{ route('email.compose') }}">Compose</a></li>
+                    <li><a href="{{ route('email.bulk') }}">Bulk Message</a></li>
                 </ul>
             </li>
         </ul>

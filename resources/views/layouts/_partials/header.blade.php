@@ -106,14 +106,14 @@
         <div class="dropdown">
             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                 <span class="user-icon">
-                    <img src="{{ asset('vendors/images/photo1.jpg') }}" alt="">
+                    <img src="https://portal.telkom.co.id/assets/dist_v4//img/logotelkom.png" alt="">
                 </span>
                 <span class="user-name">{{ auth()->user()->name }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
+                <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Profile</a>
+                <a class="dropdown-item" href="#"><i class="dw dw-settings2"></i> Setting</a>
+                <a class="dropdown-item" href="#"><i class="dw dw-help"></i> Help</a>
                 <a class="dropdown-item" href="javascript:;" onclick="event.preventDefault();getElementById('logout').submit();"><i class="dw dw-logout"></i> Log Out</a>
                 <form action="{{ route('logout') }}" method="POST" id="logout">
                     @csrf

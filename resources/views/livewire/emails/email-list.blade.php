@@ -19,7 +19,7 @@
             <div class="row clearfix">
                 <div class="col-md-4 col-sm-12 mb-30">
                     <div class="pd-20 card-box">
-                        <button class="btn btn-primary btn-lg btn-block">Compose</button>
+                        <a href="{{ route('email.compose') }}" class="btn btn-primary btn-lg btn-block">Compose</a>
                         <div class="list-group mt-15">
                             <button wire:click="$set('menu', 'INBOX')"
                                 class="list-group-item list-group-item-action d-flex justify-content-between {{ $menu == 'INBOX' ? 'active' : '' }}">

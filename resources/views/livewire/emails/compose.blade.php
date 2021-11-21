@@ -3,7 +3,7 @@
         <div class="min-height-200px">
             <div class="page-header">
                 <div class="row">
-                    <div class="col-md-12 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <div class="title">
                             <h4>Compose</h4>
                         </div>
@@ -14,24 +14,16 @@
                             </ol>
                         </nav>
                     </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <a class="btn btn-primary" href="{{ route('email.bulk') }}">Bulk Message</a>
+                    </div>
                 </div>
             </div>
             <div class="row clearfix">
 
                 <div class="col-md-8 col-lg-8 col-sm-12 mb-30">
                     <div class="pd-20 card-box height-100-p">
-                        @if (session('message'))
-                        <div class="alert alert-success">
-                            <i class="icon-copy dw dw-mail"></i>
-                            {{ session('message') }}
-                        </div>
-                        @endif
-
-                        @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                        @endif
+                        <x-alert-session />
 
                         <form wire:submit.prevent="sendEmail">
                             <div class="form-group">

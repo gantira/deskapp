@@ -33,12 +33,12 @@ class Compose extends Component
 
         // check for failures
         if (Mail::failures()) {
-            session()->flash('error', 'Send Email Failure!');
+            session()->flash('failure', 'Send Email Failure!');
 
             return redirect()->route('email.compose');
         }
 
-        session()->flash('message', 'Email sent!');
+        session()->flash('sent', 'Email sent!');
 
         return redirect()->route('email.compose');
     }
