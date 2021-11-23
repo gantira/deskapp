@@ -30,10 +30,17 @@
                                 <h4 class="text-blue h4">Perihal : {{ $batch->perihal }}</h4>
                             </div>
                             <div class="pull-right">
-                                <a href="task-add" wire:click.prevent='sendAll'
-                                    class="bg-light-blue btn text-blue weight-500"><i
-                                        class="icon-copy dw dw-paper-plane"></i>
-                                    Send All</a>
+                                @if (!$complete)
+                                    <button wire:click.prevent='sendAll'
+                                        class="bg-light-blue btn text-blue weight-500"><i
+                                            class="icon-copy dw dw-paper-plane"></i> Send All
+
+                                    </button>
+                                @else
+                                    <button disabled class="bg-light-blue btn text-blue weight-500"><i class="icon-copy fa fa-check" aria-hidden="true"></i>
+                                        Completed
+                                    </button>
+                                @endif
                             </div>
                         </div>
 

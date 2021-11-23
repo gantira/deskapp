@@ -46,7 +46,7 @@ class BatchList extends AdminComponent
 
     public function render()
     {
-        $bathes = Batch::withCount('messages')->orderBy('created_at', 'desc')->paginate($this->perPage);
+        $bathes = Batch::orderBy('created_at', 'desc')->paginate($this->perPage);
 
         return view('livewire.emails.batch-list', [
             'batches' => $bathes,

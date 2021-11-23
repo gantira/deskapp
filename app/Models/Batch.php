@@ -16,6 +16,8 @@ class Batch extends Model
         'formatted_body',
     ];
 
+    protected $withCount = ['messages'];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();
