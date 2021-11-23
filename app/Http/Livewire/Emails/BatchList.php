@@ -14,10 +14,8 @@ class BatchList extends AdminComponent
 
     public $fileUpload;
     public $perihal;
-    public $formatted_subject;
+    public $formatted_subject = 'User ID [nik] sudah teregistrasi';
     public $formatted_body;
-
-    public $batch;
 
     protected $rules = [
         'perihal' => 'required|string',
@@ -39,17 +37,21 @@ class BatchList extends AdminComponent
 
         Excel::import(new BatchImport($batch), $this->fileUpload);
 
-        session()->flash('success', 'New batch uploaded successfully!');
+        session()->flash('success', 'New batch uploaded!');
 
-        return redirect()->route('email.batch');
+        $this->reset();
+
+        $this->dispatchBrowserEvent('hide-form');
     }
 
     public function render()
     {
-        $bathes = Batch::orderBy('created_at', 'desc')->paginate($this->perPage);
+        $batches = Batch::withCount(['messages as messages_sent' => function ($query) {
+            $query->where('flag_id', 6);
+        }])->orderBy('created_at', 'desc')->paginate($this->perPage);
 
         return view('livewire.emails.batch-list', [
-            'batches' => $bathes,
+            'batches' => $batches,
         ]);
     }
 }

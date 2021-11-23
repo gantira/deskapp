@@ -30,14 +30,30 @@
                                 <h4 class="text-blue h4">Perihal : {{ $batch->perihal }}</h4>
                             </div>
                             <div class="pull-right">
-                                @if (!$complete)
-                                    <button wire:click.prevent='sendAll'
-                                        class="bg-light-blue btn text-blue weight-500"><i
-                                            class="icon-copy dw dw-paper-plane"></i> Send All
+
+
+                                @if (!$this->complete)
+                                    <button wire:click.prevent='sendAll' wire:loading.attr="disabled"
+                                        wire:target="sendAll" class="bg-light-blue btn text-blue weight-500">
+
+                                        <div class="d-flex align-items-center">
+                                            <i wire:target="sendAll" wire:loading.attr.class="d-none"
+                                                class="icon-copy fa fa-paper-plane"></i>
+
+                                            <span wire:loading wire:target="sendAll"
+                                                class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            <span class="sr-only">Loading...</span>
+                                            &nbsp;
+
+                                            <span wire:loading.class="d-none"> Send All</span>
+                                            <span wire:loading> Send mail in progress</span>
+                                        </div>
 
                                     </button>
                                 @else
-                                    <button disabled class="bg-light-blue btn text-blue weight-500"><i class="icon-copy fa fa-check" aria-hidden="true"></i>
+                                    <button disabled class="bg-light-blue btn text-blue weight-500"><i
+                                            class="icon-copy dw dw-checked"></i>
                                         Completed
                                     </button>
                                 @endif
@@ -64,8 +80,15 @@
                                         </td>
                                         <td>{{ $item->subject }}</td>
                                         <td>{{ $item->body }}</td>
-                                        <td><span class="badge badge-pill" data-bgcolor="#e7ebf5" data-color="#265ed7"
-                                                style="color: rgb(38, 94, 215); background-color: rgb(231, 235, 245);">{{ $item->flag_name }}</span>
+                                        <td>
+
+                                            <span class="badge badge-pill" data-bgcolor="#e7ebf5" data-color="#265ed7"
+                                                style="color: rgb(38, 94, 215); background-color: rgb(231, 235, 245);">
+                                                @if ($item->flag_id == 6)
+                                                    <i class="icon-copy dw dw-check"></i>
+                                                @endif
+                                                {{ $item->flag_name }}
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach

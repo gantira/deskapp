@@ -13,7 +13,7 @@
 
 @if (session('success'))
 <div class="alert alert-success">
-    <i class="icon-copy fa fa-check-circle" aria-hidden="true"></i>
+    <i class="icon-copy dw dw-checked"></i>
     {{ session('success') }}
 </div>
 @endif

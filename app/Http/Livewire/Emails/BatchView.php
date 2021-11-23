@@ -10,16 +10,17 @@ use Illuminate\Support\Facades\Mail;
 
 class BatchView extends AdminComponent
 {
+    public $batchId;
     public $batch;
 
-    public function mount(Batch $batch)
+    public function mount($batch)
     {
-        $this->batch = $batch;
+        $this->batchId = $batch;
     }
 
     public function sendAll()
     {
-        Message::where('batch_id', $this->batch->id)->get()->each(function ($message) {
+        Message::where('batch_id', $this->batchId)->get()->each(function ($message) {
             if ($message->flag_id != 6) {
                 Mail::send(new SendMessage($message));
 
@@ -35,18 +36,23 @@ class BatchView extends AdminComponent
         });
 
         session()->flash('info', "Bulk messaging on batch {$this->batch->perihal}. <b>All Sent</b>!");
+    }
 
-        return redirect()->back();
+    public function getCompleteProperty()
+    {
+        return $this->batch->messages_count == $this->batch->messages_sent;
     }
 
     public function render()
     {
-        $messages = Message::where('batch_id', $this->batch->id);
-        $complete = $messages->where('flag_id', 6)->count() == $this->batch->messages_count;
+        $this->batch = Batch::withCount(['messages as messages_sent' => function ($query) {
+            return $query->where('flag_id', 6);
+        }])->where('id', $this->batchId)->first();
+
+        $messages = Message::where('batch_id', $this->batchId)->paginate($this->perPage);
 
         return view('livewire.emails.batch-view', [
-            'messages' => $messages->paginate($this->perPage),
-            'complete' => $complete,
+            'messages' => $messages,
         ]);
     }
 }

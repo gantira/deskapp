@@ -9,7 +9,7 @@
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Bulk Message</li>
                             </ol>
                         </nav>
@@ -28,19 +28,21 @@
                                 <h4 class="text-blue h4">Batch</h4>
                             </div>
                             <div class="pull-right">
-                                <a href="task-add" data-toggle="modal" data-target="#task-add"
-                                    class="bg-light-blue btn text-blue weight-500"><i class="ion-plus-round"></i>
+                                <a href="form" data-toggle="modal" data-target="#form" data-backdrop="static"
+                                    data-keyboard="false" class="bg-light-blue btn text-blue weight-500"><i
+                                        class="ion-plus-round"></i>
                                     Add</a>
                             </div>
                         </div>
-                        <table class="table table-hover">
+                        <table class="table table-hover table-borderless">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Perihal</th>
-                                    <th scope="col">Message Recipient</th>
+                                    <th scope="col">Message(s) Sent</th>
                                     <th scope="col">Uploaded At</th>
                                     <th scope="col">Uploaded By</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -49,9 +51,10 @@
                                     <tr>
                                         <th scope="row">{{ $batches->firstItem() + $index }}</th>
                                         <td>{{ $item->perihal }}</td>
-                                        <td>{{ $item->messages_count }}</td>
+                                        <td>{{ "$item->messages_sent / $item->messages_count" }}</td>
                                         <td>{{ $item->created_at->toFormattedDate() }}</td>
                                         <td>{{ $item->user->name }}</td>
+                                        <td>{!! $item->messages_sent == $item->messages_count ? '<i class="icon-copy dw dw-checked text-success"></i>' : '<span class="badge badge-sm badge-pill badge-secondary">In progress</span>' !!}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
@@ -75,7 +78,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-muted text-center">Data empty</td>
+                                        <td colspan="7" class="text-muted text-center">Data empty</td>
                                     </tr>
                                 @endforelse
 
@@ -92,7 +95,7 @@
     </div>
 
     {{-- Modal --}}
-    <div wire:ignore.self class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
+    <div wire:ignore.self class="modal fade customscroll" id="form" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form wire:submit.prevent="createBatch">
                 <div class="modal-content">
@@ -134,7 +137,7 @@
                                     <div class="form-group row">
                                         <div class="col-md-5">
                                             <i class="icon-copy dw dw-file-38"></i>
-                                            <a href="{{ asset('batch_user_template.csv') }}"><small
+                                            <a href="{{ asset('template_batch.csv') }}"><small
                                                     class="font-italic weight-200">
                                                     download template csv</small></a>
                                         </div>
@@ -155,12 +158,10 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-md-12">Formatted body</label>
+                                        <label class="col-md-12">Formatted Body</label>
                                         <div class="col-md-12">
-                                            <textarea wire:model.defer="formatted_body" placeholder="ex: User ID [nik] sudah teregistrasi, silakan lakukan ubah password di https://kypas.telkom.co.id (intranet) atau https://portal.telkom.co.id (internet)
-Login menggunakan user id : [nik] dan pwd : [password]
-Bila mengalami kesulitan,silakan menghubungi Service Desk DIT di email it-care@telkom.co.id"
-                                                class="form-control @error('formatted_body') is-invalid @enderror"" id="
+                                            <textarea wire:model.defer="formatted_body" placeholder=""
+                                                class="form-control @error('formatted_body') is-invalid @enderror" id="
                                                 formatted_body"></textarea>
                                             @error('formatted_body')
                                                 <div class="invalid-feedback">
@@ -172,10 +173,10 @@ Bila mengalami kesulitan,silakan menghubungi Service Desk DIT di email it-care@t
 
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <small>Legend:</small> <br />
                                             <small class="text-muted">
-                                                [nik] => untuk nik dinamis <br />
-                                                [password] => untuk password dinamis <br />
+                                                <i class="icon-copy fa fa-info-circle" aria-hidden="true"></i>
+                                                Variabel tersedia =>
+                                                [nik] , [password] <br />
                                             </small>
                                         </div>
                                     </div>
@@ -185,8 +186,13 @@ Bila mengalami kesulitan,silakan menghubungi Service Desk DIT di email it-care@t
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">
-                            <i class="icon-copy dw dw-upload2"></i>
-                            Upload User CSV
+
+                            <i wire:loading.class="d-none" class="icon-copy dw dw-upload2"></i>
+                            <span wire:loading wire:target="createBatch" class="spinner-border spinner-border-sm"
+                                role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+
+                            <span>Upload User CSV</span>
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
@@ -196,11 +202,3 @@ Bila mengalami kesulitan,silakan menghubungi Service Desk DIT di email it-care@t
     </div>
 
 </div>
-
-{{-- @push('js')
-<script>
-    $('form').submit(function() {
-            @this.set('formatted_body', $('#formatted_body').val());
-        })
-</script>
-@endpush --}}
