@@ -9,7 +9,7 @@ use Livewire\Component;
 class Compose extends Component
 {
     public $message = [
-        'email' => 'angga.gantira@gmail.com',
+        'email' => '',
         'subject' => '',
         'body' => '',
     ];

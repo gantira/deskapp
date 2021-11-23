@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46512e40438fc0d00e860910a6bd3695",
+    "content-hash": "c1f26afceb9939d01a6885912b36f8a4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1921,6 +1921,76 @@
                 }
             ],
             "time": "2021-08-12T15:52:25+00:00"
+        },
+        {
+            "name": "madeitbelgium/laravel-email-domain-validation",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/madeITBelgium/Laravel-Email-Domain-Validation.git",
+                "reference": "6aa7bba130f0e86cc9cf0b7969f0f8855090f4ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/madeITBelgium/Laravel-Email-Domain-Validation/zipball/6aa7bba130f0e86cc9cf0b7969f0f8855090f4ec",
+                "reference": "6aa7bba130f0e86cc9cf0b7969f0f8855090f4ec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "5.*|6.*|7.*|8.*",
+                "illuminate/support": "5.8.*|6.*|7.*|8.*",
+                "illuminate/validation": "5.*|6.*|7.*|8.*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "mockery/mockery": "1.*",
+                "php-coveralls/php-coveralls": "~2.1",
+                "phpunit/phpunit": "5.*|6.*|7.*|8.*|9.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MadeITBelgium\\EmailDomainValidation\\EmailDomainServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "psr-4": {
+                    "MadeITBelgium\\EmailDomainValidation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Tjebbe Lievens - Made I.T.",
+                    "email": "tjebbe.lievens@madeit.be",
+                    "homepage": "https://www.madeit.be"
+                }
+            ],
+            "description": "PHP Laravel Email domain validator",
+            "homepage": "http://www.madeit.be",
+            "keywords": [
+                "domainname",
+                "email"
+            ],
+            "support": {
+                "issues": "https://github.com/madeITBelgium/Laravel-Email-Domain-Validation/issues",
+                "source": "https://github.com/madeITBelgium/Laravel-Email-Domain-Validation/tree/1.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/madeitbelgium",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-01T22:13:14+00:00"
         },
         {
             "name": "maennchen/zipstream-php",

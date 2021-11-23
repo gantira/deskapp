@@ -48,8 +48,8 @@ class BatchImport implements ToModel, WithStartRow, WithBatchInserts
             'name'     => $row[1],
             'email'    => $row[2],
             'password' => $row[3],
-            'subject'  => $this->batch->formatted_subject,
-            'body'     => $this->batch->formatted_body,
+            'subject'  => formattedText($this->batch->formatted_subject, $row),
+            'body'     => formattedText($this->batch->formatted_body, $row),
             'flag_id'  => 5,
         ]);
     }

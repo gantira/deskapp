@@ -21,15 +21,17 @@ class BatchView extends AdminComponent
     public function sendAll()
     {
         Message::where('batch_id', $this->batch->id)->get()->each(function ($message) {
-            Mail::to($message)->send(new SendMessage($message));
+            if ($message->flag_id !== 6) {
+                Mail::send(new SendMessage($message));
 
-            $message->update(['flag_id' => 6]);
+                $message->update(['flag_id' => 6]);
 
-            // check for failures
-            if (Mail::failures()) {
-                session()->flash('failure', 'Send Email Failure!');
+                // check for failures
+                if (Mail::failures()) {
+                    session()->flash('failure', 'Send Email Failure!');
 
-                return redirect()->back();
+                    return redirect()->back();
+                }
             }
         });
 

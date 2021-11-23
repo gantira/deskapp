@@ -45,34 +45,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($batches as $index => $item)
-                                <tr>
-                                    <th scope="row">{{ $batches->firstItem() + $index }}</th>
-                                    <td>{{ $item->perihal }}</td>
-                                    <td>{{ $item->messages_count }}</td>
-                                    <td>{{ $item->created_at->toFormattedDate() }}</td>
-                                    <td>{{ $item->user->name }}</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                href="#" role="button" data-toggle="dropdown">
-                                                <i class="dw dw-more"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('email.batch.view', $item) }}"><i
-                                                        class="dw dw-eye"></i>
-                                                    View</a>
-                                                <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                                <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i>
-                                                    Delete</a>
+                                @forelse ($batches as $index => $item)
+                                    <tr>
+                                        <th scope="row">{{ $batches->firstItem() + $index }}</th>
+                                        <td>{{ $item->perihal }}</td>
+                                        <td>{{ $item->messages_count }}</td>
+                                        <td>{{ $item->created_at->toFormattedDate() }}</td>
+                                        <td>{{ $item->user->name }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                                    href="#" role="button" data-toggle="dropdown">
+                                                    <i class="dw dw-more"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('email.batch.view', $item) }}"><i
+                                                            class="dw dw-eye"></i>
+                                                        View</a>
+                                                    <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i>
+                                                        Edit</a>
+                                                    <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i>
+                                                        Delete</a>
+                                                </div>
                                             </div>
-                                        </div>
 
 
-                                    </td>
-                                </tr>
-                                @endforeach
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-muted text-center">Data empty</td>
+                                    </tr>
+                                @endforelse
 
                             </tbody>
                         </table>
@@ -108,9 +113,9 @@
                                             <input wire:model.defer='perihal' type="text"
                                                 class="form-control @error('perihal') is-invalid @enderror">
                                             @error('perihal')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -120,9 +125,9 @@
                                             <input wire:model.defer='fileUpload' type="file" accept=".csv"
                                                 class="form-control @error('fileUpload') is-invalid @enderror">
                                             @error('fileUpload')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -138,24 +143,40 @@
                                     <div class="form-group row">
                                         <label class="col-md-12">Formatted Subject</label>
                                         <div class="col-md-12">
-                                            <input wire:model.defer="formatted_subject" class="form-control  @error('formatted_subject') is-invalid @enderror"" />
+                                            <input wire:model.defer="formatted_subject"
+                                                placeholder="ex: User ID [nik] sudah teregistrasi"
+                                                class="form-control  @error('formatted_subject') is-invalid @enderror" />
                                             @error('formatted_subject')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-md-12">Formatted body</label>
-                                        <div  class="col-md-12">
-                                            <textarea wire:model.defer="formatted_body" class="form-control @error('formatted_body') is-invalid @enderror"" id="formatted_body"></textarea>
+                                        <div class="col-md-12">
+                                            <textarea wire:model.defer="formatted_body" placeholder="ex: User ID [nik] sudah teregistrasi, silakan lakukan ubah password di https://kypas.telkom.co.id (intranet) atau https://portal.telkom.co.id (internet)
+Login menggunakan user id : [nik] dan pwd : [password]
+Bila mengalami kesulitan,silakan menghubungi Service Desk DIT di email it-care@telkom.co.id"
+                                                class="form-control @error('formatted_body') is-invalid @enderror"" id="
+                                                formatted_body"></textarea>
                                             @error('formatted_body')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <small>Legend:</small> <br />
+                                            <small class="text-muted">
+                                                [nik] => untuk nik dinamis <br />
+                                                [password] => untuk password dinamis <br />
+                                            </small>
                                         </div>
                                     </div>
                                 </li>

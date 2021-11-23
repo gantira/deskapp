@@ -31,11 +31,11 @@ class SendMessage extends Mailable
      */
     public function build()
     {
-        return $this->subject("User ID {$this->message->nik} sudah teregistrasi")
+        return $this->to($this->message->email)
+            ->subject($this->message->subject)
             ->view('mail.send-message')
             ->with([
-                'nik' => $this->message->nik,
-                'password' => $this->message->password,
+                'body' => $this->message->body,
             ]);
     }
 }

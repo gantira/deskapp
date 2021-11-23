@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 function formattedDate($value)
 {
@@ -15,7 +16,10 @@ function formattedDate($value)
     }
 }
 
-function formattedText($value)
+function formattedText($string, $row)
 {
-    
+    $data = Str::replace('[nik]', $row[0], $string);
+    $data = Str::replace('[password]', $row[3], $data);
+
+    return $data;
 }

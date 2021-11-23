@@ -16,7 +16,7 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Batch::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Batch::class)->onDelete('cascade');
             $table->string('nik');
             $table->string('name');
             $table->string('email');

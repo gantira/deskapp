@@ -10,7 +10,8 @@
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item " aria-current="page"><a href="{{ route('email.batch') }}">Bulk Message</a></li>
+                                <li class="breadcrumb-item " aria-current="page"><a
+                                        href="{{ route('email.batch') }}">Bulk Message</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ $batch->perihal }}</li>
                             </ol>
                         </nav>
@@ -30,7 +31,8 @@
                             </div>
                             <div class="pull-right">
                                 <a href="task-add" wire:click.prevent='sendAll'
-                                    class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-paper-plane"></i>
+                                    class="bg-light-blue btn text-blue weight-500"><i
+                                        class="icon-copy dw dw-paper-plane"></i>
                                     Send All</a>
                             </div>
                         </div>
@@ -39,23 +41,26 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nik</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
+                                    <th>Recipient</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($messages as $index => $item)
-                                <tr>
-                                    <td>{{ $messages->firstItem() + $index }}</td>
-                                    <td>{{ $item->nik }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->password }}</td>
-                                    <td><span class="badge badge-pill" data-bgcolor="#e7ebf5" data-color="#265ed7" style="color: rgb(38, 94, 215); background-color: rgb(231, 235, 245);">{{ $item->flag_name }}</span></td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $messages->firstItem() + $index }}</td>
+                                        <td>
+                                            {{ $item->name }}
+                                            {{ $item->email }}
+                                        </td>
+                                        <td>{{ $item->subject }}</td>
+                                        <td>{{ $item->body }}</td>
+                                        <td><span class="badge badge-pill" data-bgcolor="#e7ebf5" data-color="#265ed7"
+                                                style="color: rgb(38, 94, 215); background-color: rgb(231, 235, 245);">{{ $item->flag_name }}</span>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
