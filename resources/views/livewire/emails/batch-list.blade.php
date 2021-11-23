@@ -25,7 +25,7 @@
                     <div class="pd-20 card-box height-100-p">
                         <div class="clearfix mb-20">
                             <div class="pull-left">
-                                <h4 class="text-blue h4"></h4>
+                                <h4 class="text-blue h4">Batch</h4>
                             </div>
                             <div class="pull-right">
                                 <a href="task-add" data-toggle="modal" data-target="#task-add"
@@ -38,7 +38,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Perihal</th>
-                                    <th scope="col">Mail Message(s)</th>
+                                    <th scope="col">Message Recipient</th>
                                     <th scope="col">Uploaded At</th>
                                     <th scope="col">Uploaded By</th>
                                     <th scope="col">Action</th>
@@ -49,7 +49,7 @@
                                 <tr>
                                     <th scope="row">{{ $batches->firstItem() + $index }}</th>
                                     <td>{{ $item->perihal }}</td>
-                                    <td>{{ $item->mail_messages_count }}</td>
+                                    <td>{{ $item->messages_count }}</td>
                                     <td>{{ $item->created_at->toFormattedDate() }}</td>
                                     <td>{{ $item->user->name }}</td>
                                     <td>
@@ -59,7 +59,8 @@
                                                 <i class="dw dw-more"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                <a class="dropdown-item" href="{{ route('email.batch.view', $item) }}"><i
+                                                <a class="dropdown-item"
+                                                    href="{{ route('email.batch.view', $item) }}"><i
                                                         class="dw dw-eye"></i>
                                                     View</a>
                                                 <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
@@ -81,65 +82,6 @@
                 </div>
             </div>
 
-            @if ($batch)
-            <div class="row clearfix">
-                <div class="col-md-8 col-lg-12 mb-30">
-                    <div class="faq-wrap">
-                        <h4 class="mb-20 h4 text-blue" data-toggle="collapse" data-target="#faq1"></h4>
-                        <div id="accordion">
-                            <div class="card">
-                                <div class="card-header">
-                                    <button class="btn btn-block" data-toggle="collapse" data-target="#batch">
-                                        Batch : {{ $batch->perihal }}
-                                    </button>
-                                </div>
-                                <div id="batch" class="collapse show" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <table class="table ">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nik</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Flag</th>
-                                                    <th class="datatable-nosort">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($batchMessages as $item)
-                                                <tr>
-                                                    <td>{{ $item->nik }}</td>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->password }}</td>
-                                                    <td>{{ $item->flag_name }}</td>
-                                                    <td>
-                                                        <div class="table-actions">
-                                                            <a href="#" data-color="#265ed7"><i
-                                                                    class="icon-copy dw dw-edit2"></i></a>
-                                                            <a href="#" data-color="#e95959"><i
-                                                                    class="icon-copy dw dw-delete-3"></i></a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                @empty
-                                                <tr>
-                                                    <td colspan="6">Data Empty</td>
-                                                </tr>
-                                                @endforelse
-                                            </tbody>
-                                        </table>
-                                        {{ $batchMessages->links() }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            @endif
         </div>
 
     </div>
@@ -162,7 +104,7 @@
                                 <li>
                                     <div class="form-group row">
                                         <label class="col-md-4">Perihal</label>
-                                        <div class="col-md-8">
+                                        <div class="col-md-8" wire:ignore.self>
                                             <input wire:model.defer='perihal' type="text"
                                                 class="form-control @error('perihal') is-invalid @enderror">
                                             @error('perihal')
@@ -174,8 +116,8 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4">Upload CSV</label>
-                                        <div class="col-md-8">
-                                            <input wire:model='fileUpload' type="file" accept=".csv"
+                                        <div class="col-md-8" wire:ignore.self>
+                                            <input wire:model.defer='fileUpload' type="file" accept=".csv"
                                                 class="form-control @error('fileUpload') is-invalid @enderror">
                                             @error('fileUpload')
                                             <div class="invalid-feedback">
@@ -187,11 +129,34 @@
                                     <div class="form-group row">
                                         <div class="col-md-5">
                                             <i class="icon-copy dw dw-file-38"></i>
-                                            <a href="{{ asset('template_batch_user.csv') }}"><small
+                                            <a href="{{ asset('batch_user_template.csv') }}"><small
                                                     class="font-italic weight-200">
                                                     download template csv</small></a>
                                         </div>
+                                    </div>
 
+                                    <div class="form-group row">
+                                        <label class="col-md-12">Formatted Subject</label>
+                                        <div class="col-md-12">
+                                            <input wire:model.defer="formatted_subject" class="form-control  @error('formatted_subject') is-invalid @enderror"" />
+                                            @error('formatted_subject')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-12">Formatted body</label>
+                                        <div  class="col-md-12">
+                                            <textarea wire:model.defer="formatted_body" class="form-control @error('formatted_body') is-invalid @enderror"" id="formatted_body"></textarea>
+                                            @error('formatted_body')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -210,3 +175,11 @@
     </div>
 
 </div>
+
+{{-- @push('js')
+<script>
+    $('form').submit(function() {
+            @this.set('formatted_body', $('#formatted_body').val());
+        })
+</script>
+@endpush --}}

@@ -12,6 +12,8 @@ class Batch extends Model
     protected $fillable = [
         'user_id',
         'perihal',
+        'formatted_subject',
+        'formatted_body',
     ];
 
     public function user()
@@ -19,8 +21,8 @@ class Batch extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function mailMessages()
+    public function messages()
     {
-        return $this->hasMany(MailMessage::class);
+        return $this->hasMany(Message::class);
     }
 }

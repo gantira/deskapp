@@ -18,6 +18,8 @@ class CreateBatchesTable extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->string('perihal');
+            $table->string('formatted_subject');
+            $table->longText('formatted_body');
             $table->timestamps();
         });
     }

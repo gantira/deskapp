@@ -1,12 +1,11 @@
 <?php
 
 use App\Models\Batch;
-use App\Models\Flag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMailMessagesTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,14 +14,16 @@ class CreateMailMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mail_messages', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Batch::class)->constrained();
+            $table->foreignIdFor(Batch::class)->constrained()->onDelete('cascade');
             $table->string('nik');
             $table->string('name');
             $table->string('email');
             $table->string('password');
-            $table->foreignIdFor(Flag::class);
+            $table->longText('subject')->nullable();
+            $table->longText('body')->nullable();
+            $table->foreignId('flag_id');
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ class CreateMailMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mail_messages');
+        Schema::dropIfExists('messages');
     }
 }

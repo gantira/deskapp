@@ -2,34 +2,34 @@
 
 namespace App\Http\Livewire\Emails;
 
-use App\Mail\UserRegistered;
+use App\Mail\SendRawMessage;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class Compose extends Component
 {
-    public $email = [
-        'to' => 'angga.gantira@gmail.com',
+    public $message = [
+        'email' => 'angga.gantira@gmail.com',
         'subject' => '',
         'body' => '',
     ];
 
     protected $rules = [
-        'email.to' => 'required|email',
-        'email.subject' => 'required',
-        'email.body' => 'nullable',
+        'message.email' => 'required|email',
+        'message.subject' => 'required',
+        'message.body' => 'nullable',
     ];
 
     protected $validationAttributes = [
-        'email.to' => 'to',
-        'email.subject' => 'subject',
+        'message.email' => 'email',
+        'message.subject' => 'subject',
     ];
 
     public function sendEmail()
     {
         $this->validate();
 
-        Mail::send(new UserRegistered($this->email));
+        Mail::send(new SendRawMessage($this->message));
 
         // check for failures
         if (Mail::failures()) {

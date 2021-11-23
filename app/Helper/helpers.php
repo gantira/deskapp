@@ -14,3 +14,8 @@ function formattedDate($value)
         echo $date->format('d F Y H:i');
     }
 }
+
+function formattedText($value)
+{
+    
+}

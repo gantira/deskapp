@@ -13,6 +13,14 @@
 
 @if (session('success'))
 <div class="alert alert-success">
+    <i class="icon-copy fa fa-check-circle" aria-hidden="true"></i>
     {{ session('success') }}
+</div>
+@endif
+
+@if (session('info'))
+<div class="alert alert-info">
+    <i class="icon-copy fa fa-info-circle" aria-hidden="true"></i>
+    {!! session('info') !!}
 </div>
 @endif

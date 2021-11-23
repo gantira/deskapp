@@ -15,7 +15,7 @@
                         </nav>
                     </div>
                     <div class="col-md-6 col-sm-12 text-right">
-                        <a class="btn btn-primary" href="{{ route('email.bulk') }}">Bulk Message</a>
+                        <a class="btn btn-primary" href="{{ route('email.batch') }}">Bulk Message</a>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
                 <div class="col-md-8 col-lg-8 col-sm-12 mb-30">
                     <div class="pd-20 card-box height-100-p">
-                        <x-alert-session />
+                        <x-alert-message />
 
                         <form wire:submit.prevent="sendEmail">
                             <div class="form-group">
@@ -33,9 +33,9 @@
                             </div>
                             <div class="form-group">
                                 <label>To</label>
-                                <input wire:model.defer="email.to"
-                                    class="form-control @error('email.to') is-invalid @enderror" type="text">
-                                @error('email.to')
+                                <input wire:model.defer="message.email"
+                                    class="form-control @error('message.email') is-invalid @enderror" type="text">
+                                @error('message.email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -43,9 +43,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Subject</label>
-                                <input wire:model.defer="email.subject"
-                                    class="form-control @error('email.subject') is-invalid @enderror"" type=" text">
-                                @error('email.subject')
+                                <input wire:model.defer="message.subject"
+                                    class="form-control @error('message.subject') is-invalid @enderror"" type=" text">
+                                @error('message.subject')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -77,7 +77,7 @@
 @push('js')
 <script>
     $('form').submit(function() {
-            @this.set('email.body', $('#body').val());
+            @this.set('message.body', $('#body').val());
         })
 </script>
 @endpush

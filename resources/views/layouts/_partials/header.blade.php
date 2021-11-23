@@ -46,7 +46,7 @@
             </a>
         </div>
     </div>
-    <div class="user-notification">
+    {{-- <div class="user-notification">
         <div class="dropdown">
             <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
                 <i class="icon-copy dw dw-notification"></i>
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="user-info-dropdown">
         <div class="dropdown">
             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -122,6 +122,6 @@
         </div>
     </div>
     <div class="github-link">
-        <a href="https://github.com/dropways/deskapp" target="_blank"><img src="{{ asset('vendors/images/github.svg') }}" alt=""></a>
+        <a href="#"><img src="{{ asset('vendors/images/github.svg') }}" alt=""></a>
     </div>
 </div>

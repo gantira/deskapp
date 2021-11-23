@@ -15,12 +15,7 @@
                     <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
                 </a>
             </li>
-            <li>
-                <div class="dropdown-divider"></div>
-            </li>
-            <li>
-                <div class="sidebar-small-cap">Apps</div>
-            </li>
+
             <li class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle">
                     <span class="micon dw dw-email-1"></span><span class="mtext">Email</span>
@@ -28,7 +23,7 @@
                 <ul class="submenu">
                     <li><a href="{{ route('email') }}">Inbox</a></li>
                     <li><a href="{{ route('email.compose') }}">Compose</a></li>
-                    <li><a href="{{ route('email.bulk') }}">Bulk Message</a></li>
+                    <li><a href="{{ route('email.batch') }}">Bulk Message</a></li>
                 </ul>
             </li>
         </ul>
