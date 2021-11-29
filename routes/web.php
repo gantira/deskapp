@@ -4,6 +4,9 @@ use App\Http\Livewire\Emails\BatchList;
 use App\Http\Livewire\Emails\BatchView;
 use App\Http\Livewire\Emails\Compose;
 use App\Http\Livewire\Emails\EmailList;
+use App\Http\Livewire\Tables\ApprovalList;
+use App\Http\Livewire\Tables\ContractorList;
+use App\Http\Livewire\Tables\EmployeeList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +28,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/email/compose', Compose::class)->name('email.compose');
     Route::get('/email/batch', BatchList::class)->name('email.batch');
     Route::get('/email/{batch}/batch', BatchView::class)->name('email.batch.view');
+
+    Route::get('/employees', EmployeeList::class)->name('employees');
+    Route::get('/contractors', ContractorList::class)->name('contractors');
+    Route::get('/approval', ApprovalList::class)->name('approval');
 
     Route::get('/dashboard', fn () =>  view('dashboard'))->name('dashboard');
 });

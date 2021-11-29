@@ -85,7 +85,7 @@
     <script src="{{ asset('src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('vendors/scripts/dashboard.js') }}"></script>
-    <script src="{{ mix('js/backend.js') }}"></script>
+    <script src="{{ asset('js/backend.js') }}"></script>
 
     @livewireScripts
 

@@ -26,6 +26,17 @@
                     <li><a href="{{ route('email.batch') }}">Bulk Message</a></li>
                 </ul>
             </li>
+
+            <li class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle">
+                    <span class="micon dw dw-table"></span><span class="mtext">Tables</span>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{{ route('employees') }}">Employees</a></li>
+                    <li><a href="{{ route('contractors') }}">Contractors</a></li>
+                    <li><a href="{{ route('approval') }}">Approval</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>
