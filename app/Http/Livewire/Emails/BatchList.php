@@ -21,7 +21,7 @@ class BatchList extends AdminComponent
         'perihal' => 'required|string',
         'formatted_subject' => 'required|string',
         'formatted_body' => 'required|string',
-        'fileUpload' => 'required|file|mimes:csv,txt|max:1024',
+        'fileUpload' => 'required|file|mimes:xls|max:1024',
     ];
 
     public function createBatch()

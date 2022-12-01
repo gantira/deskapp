@@ -123,9 +123,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-4">Upload CSV</label>
+                                        <label class="col-md-4">Upload XLS</label>
                                         <div class="col-md-8" wire:ignore.self>
-                                            <input wire:model.defer='fileUpload' type="file" accept=".csv"
+                                            <input wire:model.defer='fileUpload' type="file" accept=".xls"
                                                 class="form-control @error('fileUpload') is-invalid @enderror">
                                             @error('fileUpload')
                                                 <div class="invalid-feedback">
@@ -137,9 +137,9 @@
                                     <div class="form-group row">
                                         <div class="col-md-5">
                                             <i class="icon-copy dw dw-file-38"></i>
-                                            <a href="{{ asset('template_batch.csv') }}"><small
+                                            <a href="{{ asset('template_batch.xls') }}"><small
                                                     class="font-italic weight-200">
-                                                    download template csv</small></a>
+                                                    download template xls</small></a>
                                         </div>
                                     </div>
 
@@ -175,7 +175,7 @@
                                         <div class="col-md-12">
                                             <small class="text-muted">
                                                 <i class="icon-copy fa fa-info-circle" aria-hidden="true"></i>
-                                                Variabel tersedia =>
+                                                Variabel dinamis =>
                                                 [nik] , [password] <br />
                                             </small>
                                         </div>
@@ -192,7 +192,7 @@
                                 role="status" aria-hidden="true"></span>
                             <span class="sr-only">Loading...</span>
 
-                            <span>Upload User CSV</span>
+                            <span>Upload User Xls</span>
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>

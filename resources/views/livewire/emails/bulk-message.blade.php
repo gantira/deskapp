@@ -173,9 +173,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-4">Upload CSV</label>
+                                        <label class="col-md-4">Upload XLS</label>
                                         <div class="col-md-8">
-                                            <input wire:model='fileUpload' type="file" accept=".csv"
+                                            <input wire:model='fileUpload' type="file" accept=".xls"
                                                 class="form-control @error('fileUpload') is-invalid @enderror">
                                             @error('fileUpload')
                                             <div class="invalid-feedback">
@@ -187,7 +187,7 @@
                                     <div class="form-group row">
                                         <div class="col-md-5">
                                             <i class="icon-copy dw dw-file-38"></i>
-                                            <a href="{{ asset('template_batch_user.csv') }}"><small
+                                            <a href="{{ asset('template_batch.xls') }}"><small
                                                     class="font-italic weight-200">
                                                     download template csv</small></a>
                                         </div>
