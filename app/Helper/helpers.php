@@ -19,6 +19,8 @@ function formattedDate($value)
 function formattedText($string, $row)
 {
     $data = Str::replace('[nik]', $row[0], $string);
+    $data = Str::replace('[name]', $row[1], $data);
+    $data = Str::replace('[email]', $row[2], $data);
     $data = Str::replace('[password]', $row[3], $data);
 
     return $data;

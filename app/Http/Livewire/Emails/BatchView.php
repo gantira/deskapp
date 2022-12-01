@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Emails;
 
 use App\Http\Livewire\AdminComponent;
+use App\Jobs\SendQueueEmail;
 use App\Mail\SendMessage;
 use App\Models\Batch;
 use App\Models\Message;
@@ -20,22 +21,11 @@ class BatchView extends AdminComponent
 
     public function sendAll()
     {
-        Message::where('batch_id', $this->batchId)->get()->each(function ($message) {
-            if ($message->flag_id != 6) {
-                Mail::send(new SendMessage($message));
-
-                $message->update(['flag_id' => 6]);
-
-                // check for failures
-                if (Mail::failures()) {
-                    session()->flash('failure', 'Send Email Failure!');
-
-                    return redirect()->back();
-                }
-            }
-        });
+        SendQueueEmail::dispatch($this->batchId);
 
         session()->flash('info', "Bulk messaging on batch {$this->batch->perihal}. <b>All Sent</b>!");
+        
+        return redirect()->route('email.batch');
     }
 
     public function getCompleteProperty()

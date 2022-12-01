@@ -31,6 +31,7 @@ class Message extends Model
             4 => "Seen",
             5 => "Draft",
             6 => "Sent",
+            7 => "Failure",
         ][$this->attributes['flag_id']];
     }
 }
